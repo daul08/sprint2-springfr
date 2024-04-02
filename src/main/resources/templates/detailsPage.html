@@ -4,7 +4,10 @@
       layout:decorate="layout/main.html">
 <div layout:fragment="content">
     <div>
-        <form action="/app-req/setHandled" method="post">
+        <h3 th:text="${Application.isHandled() ? 'Обработанная заявка' : '***Новая необработанная заявка***'}" th:class="${Application.isHandled() ? 'text-success mt-3 text-center' : 'text-danger mt-3 text-center'}"></h3>
+    </div>
+    <div>
+        <form action="/app-req/delete" method="post">
             <div>
                 <input type="hidden" name="id" th:value="${Application.getId()}" >
             </div>
@@ -25,8 +28,36 @@
                 <label for="coment" class="form-label">Комментарии</label>
                 <textarea class="form-control" th:value="${Application.getCommentary()}" name="commentary" id="coment" disabled></textarea>
             </div>
-            <button type="submit" class="btn btn-success">Обработать заявку</button>
+            <button type="submit" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Удалить
+            </button>
         </form>
+    </div>
+    <div th:unless="${Application.isHandled()}">
+        <form action="/app-req/setHandled" method="post">
+            <div>
+                <input type="hidden" name="id" th:value="${Application.getId()}" >
+            </div>
+            <button type="submit" class="btn btn-success mt-3">Обработать заявку</button>
+        </form>
+    </div>
+</div>
+ Modal
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Вы действительно хотите удалить запись</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Удалить</button>
+            </div>
+        </div>
     </div>
 </div>
 

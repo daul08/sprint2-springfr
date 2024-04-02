@@ -62,4 +62,10 @@ public class HomeController {
         return "redirect:/app-req/" + applicationRequest.getId();
     }
 
+    @PostMapping("/app-req/delete")
+    public String deleteApplication(ApplicationRequest applicationRequest) {
+        applicationRequestService.deleteApplication(applicationRequest);
+        return "redirect:/";
+    }
+
 }

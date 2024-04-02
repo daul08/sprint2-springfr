@@ -40,4 +40,8 @@ public class ApplicationRequestService {
         result.setHandled(true);
         return applicationRequestRepository.save(result);
     }
+
+    public void deleteApplication(ApplicationRequest applicationRequest) {
+        applicationRequestRepository.delete(applicationRequest);
+    }
 }
